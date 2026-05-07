@@ -31,6 +31,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.data.InMemoryWalletRepository
+import com.coditria.walletai.resources.Res
+import com.coditria.walletai.resources.out_of
+import org.jetbrains.compose.resources.stringResource
 import com.coditria.walletai.domain.model.AiInsight
 import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.domain.model.CategoryBreakdown
@@ -188,7 +191,7 @@ private fun HealthRing(score: Int, max: Int) {
                 color = WalletTheme.colors.ink,
             )
             Text(
-                s.outOf(max),
+                stringResource(Res.string.out_of, max),
                 style = WalletTheme.typography.caption,
                 color = WalletTheme.colors.muted,
             )

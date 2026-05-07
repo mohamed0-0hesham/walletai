@@ -31,6 +31,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.data.InMemoryWalletRepository
+import com.coditria.walletai.resources.Res
+import com.coditria.walletai.resources.paid_of_total
+import org.jetbrains.compose.resources.stringResource
 import com.coditria.walletai.domain.model.HeatmapMonth
 import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.domain.model.Installment
@@ -163,7 +166,7 @@ private fun SummaryHero(viewModel: InstallmentsViewModel) {
                 )
                 SummaryStat(
                     label = s.remaining,
-                    value = "${viewModel.summary.remainingMonths} ${if (s.locale == com.coditria.walletai.app.AppLocale.English) "months" else "شهر"}",
+                    value = "${viewModel.summary.remainingMonths} ${s.monthsWord}",
                     modifier = Modifier.weight(1f),
                 )
             }
@@ -324,7 +327,7 @@ private fun InstallmentBigCard(inst: Installment) {
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                "${inst.paidMonths} ${if (s.locale == com.coditria.walletai.app.AppLocale.English) "of" else "من"} ${inst.totalMonths}",
+                stringResource(Res.string.paid_of_total, inst.paidMonths, inst.totalMonths),
                 style = WalletTheme.typography.caption,
                 color = WalletTheme.colors.muted,
             )

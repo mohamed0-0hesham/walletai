@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash -->
+    <string name="app_name">WalletAI</string>
+    <string name="tagline">محفظتك الذكية · مدعومة بالـ AI</string>
+    <string name="version_loading">v 2.4.0 · جاري التحميل…</string>
+
+    <!-- Auth -->
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة السر</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="sign_up">أنشئ حساب</string>
+    <string name="create_account">إنشاء الحساب</string>
+    <string name="remember_me">تذكرني</string>
+    <string name="forgot_password">نسيت كلمة السر؟</string>
+    <string name="or_sign_in_with">أو سجّل بـ</string>
+    <string name="no_account">ليس عندك حساب؟</string>
+    <string name="have_account">عندك حساب بالفعل؟</string>
+    <string name="welcome_back">أهلاً بعودتك 👋</string>
+    <string name="welcome_back_sub">سجّل دخولك عشان تكمّل إدارة أموالك بذكاء</string>
+    <string name="create_title">أنشئ حسابك</string>
+    <string name="create_sub">دقيقة واحدة وتبدأ تتحكم في فلوسك</string>
+    <string name="first_name">الاسم الأول</string>
+    <string name="last_name">اسم العائلة</string>
+    <string name="mobile">رقم الموبايل</string>
+    <string name="password_placeholder">على الأقل 8 أحرف</string>
+    <string name="password_strength_good">قوة جيدة · أضف رمز خاص لتقويتها</string>
+    <string name="agree_terms">أوافق على الشروط والأحكام و سياسة الخصوصية</string>
+
+    <!-- Dashboard -->
+    <string name="good_morning">صباح الخير 👋</string>
+    <string name="total_balance">الرصيد الكلي</string>
+    <string name="net_this_month">+%1$s %2$s صافي هذا الشهر</string>
+    <string name="income">الدخل</string>
+    <string name="expenses">المصاريف</string>
+    <string name="add">إضافة</string>
+    <string name="voice">صوتي</string>
+    <string name="transfer">تحويل</string>
+    <string name="goals">أهداف</string>
+    <string name="analysis">التحليل</string>
+    <string name="more">المزيد ‹</string>
+    <string name="view_all">الكل ‹</string>
+    <string name="week">أسبوع</string>
+    <string name="month">شهر</string>
+    <string name="year">سنة</string>
+    <string name="upcoming_installments">أقساط قريبة</string>
+    <string name="recent_transactions">آخر المعاملات</string>
+
+    <!-- Add transaction -->
+    <string name="new_transaction">معاملة جديدة</string>
+    <string name="expense">مصروف</string>
+    <string name="tell_me_about_tx">قول كده عن المعاملة</string>
+    <string name="ai_understanding">AI · فهم النص</string>
+    <string name="amount">المبلغ</string>
+    <string name="ai">AI</string>
+    <string name="auto_suggestions">اقتراحات تلقائية</string>
+    <string name="category">الفئة</string>
+    <string name="date">التاريخ</string>
+    <string name="account">الحساب</string>
+    <string name="cancel">إلغاء</string>
+    <string name="save_transaction">حفظ المعاملة</string>
+
+    <!-- Voice -->
+    <string name="voice_assistant">المساعد الصوتي</string>
+    <string name="listening">جاري الاستماع</string>
+    <string name="say_in_arabic">قول معاملتك بالعربي</string>
+    <string name="live">مباشر</string>
+    <string name="transcribing">جاري التحويل لنص</string>
+
+    <!-- Installments -->
+    <string name="installments">الأقساط</string>
+    <string name="total_remaining_debt">إجمالي الديون المتبقية</string>
+    <string name="monthly">شهري</string>
+    <string name="remaining">متبقي</string>
+    <string name="tab_active">نشطة</string>
+    <string name="tab_calendar">التقويم</string>
+    <string name="tab_done">منتهية</string>
+    <string name="pressure_map">خريطة الضغط الشهري</string>
+    <string name="per_month_suffix">/شهر</string>
+    <string name="months_word">شهر</string>
+    <string name="paid_of_total">%1$d من %2$d</string>
+
+    <!-- Reports -->
+    <string name="reports">التقارير</string>
+    <string name="financial_health">صحتك المالية</string>
+    <string name="verdict_good">جيد</string>
+    <string name="out_of">من %1$d</string>
+    <string name="expense_breakdown">توزيع المصاريف</string>
+    <string name="smart_insights">تحليلات وملاحظات ذكية</string>
+    <string name="expenses_unit">ج.م مصاريف</string>
+
+    <!-- Settings -->
+    <string name="settings">الإعدادات</string>
+    <string name="account_section">الحساب</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="profile_sub">عدّل اسمك وصورتك</string>
+    <string name="accounts_cards">الحسابات والبطاقات</string>
+    <string name="linked_accounts">%1$d حسابات مرتبطة</string>
+    <string name="limits_budgets">الحدود والميزانيات</string>
+    <string name="set_monthly_budget">حدد ميزانية شهرية</string>
+    <string name="preferences">التفضيلات</string>
+    <string name="appearance">المظهر</string>
+    <string name="appearance_sub">فاتح أو داكن</string>
+    <string name="light">فاتح</string>
+    <string name="dark">داكن</string>
+    <string name="language">اللغة</string>
+    <string name="language_sub">العربية أو الإنجليزية</string>
+    <string name="arabic">العربية</string>
+    <string name="english">English</string>
+    <string name="currency">العملة</string>
+    <string name="egyptian_pound">الجنيه المصري</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="notifications_sub">تنبيهات الأقساط والمصاريف</string>
+    <string name="security_privacy">الأمان والخصوصية</string>
+    <string name="change_password">تغيير كلمة السر</string>
+    <string name="change_password_sub">آخر تحديث منذ 3 أشهر</string>
+    <string name="biometrics">البصمة / Face ID</string>
+    <string name="biometrics_sub">دخول سريع وآمن</string>
+    <string name="two_factor">المصادقة الثنائية</string>
+    <string name="two_factor_sub">طبقة حماية إضافية</string>
+    <string name="support">الدعم</string>
+    <string name="help_center">مركز المساعدة</string>
+    <string name="terms_privacy">الشروط والخصوصية</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    <string name="version_line">WalletAI · v 2.4.0</string>
+    <string name="pro_membership">عضوية Pro</string>
+
+    <!-- Bottom nav -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_transactions">المعاملات</string>
+    <string name="nav_reports">التقارير</string>
+    <string name="nav_settings">الإعدادات</string>
+</resources>

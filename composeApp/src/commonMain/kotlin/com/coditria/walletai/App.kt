@@ -13,7 +13,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.AppPreferences
 import com.coditria.walletai.app.LocalWalletStrings
-import com.coditria.walletai.app.stringsFor
+import com.coditria.walletai.app.ProvideAppLocale
+import com.coditria.walletai.app.rememberWalletStrings
 import com.coditria.walletai.data.InMemoryWalletRepository
 import com.coditria.walletai.feature.addtransaction.AddTransactionScreen
 import com.coditria.walletai.feature.addtransaction.AddTransactionViewModel
@@ -43,14 +44,15 @@ import com.walletai.core.designsystem.theme.WalletTheme
 @Preview
 fun App() {
     val prefs = remember { AppPreferences() }
-    val strings = stringsFor(prefs.locale)
     val direction = if (prefs.locale == AppLocale.Arabic) LayoutDirection.Rtl else LayoutDirection.Ltr
 
     WalletTheme(darkTheme = prefs.darkMode) {
-        CompositionLocalProvider(
-            LocalWalletStrings provides strings,
-            LocalLayoutDirection provides direction,
-        ) {
+        ProvideAppLocale(prefs.locale) {
+            val strings = rememberWalletStrings()
+            CompositionLocalProvider(
+                LocalWalletStrings provides strings,
+                LocalLayoutDirection provides direction,
+            ) {
             val repository = remember { InMemoryWalletRepository() }
             val nav = rememberWalletNavController(initial = Route.Splash)
 
@@ -118,6 +120,7 @@ fun App() {
                     }
                 }
             }
+        }
         }
     }
 }

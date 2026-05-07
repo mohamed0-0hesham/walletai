@@ -46,6 +46,12 @@ kotlin {
     }
 }
 
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.coditria.walletai.resources"
+    generateResClass = always
+}
+
 android {
     namespace = "com.coditria.walletai"
     compileSdk = libs.versions.android.compileSdk.get().toInt()

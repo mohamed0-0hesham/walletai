@@ -30,10 +30,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
-import com.coditria.walletai.app.ArabicStrings
-import com.coditria.walletai.app.EnglishStrings
+import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.feature.common.WalletIconWallet
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.walletai.core.designsystem.foundation.walletShadowDeep
 import com.walletai.core.designsystem.theme.WalletTheme
 import kotlinx.coroutines.delay
@@ -144,19 +144,15 @@ private fun ProgressShimmer() {
 @Preview
 @Composable
 private fun SplashScreenArabicPreview() {
-    WalletTheme(darkTheme = true) {
-        CompositionLocalProvider(LocalWalletStrings provides ArabicStrings) {
-            SplashScreen(onContinue = {})
-        }
+    WalletPreviewHarness(locale = AppLocale.Arabic, darkTheme = true) {
+        SplashScreen(onContinue = {})
     }
 }
 
 @Preview
 @Composable
 private fun SplashScreenEnglishPreview() {
-    WalletTheme(darkTheme = true) {
-        CompositionLocalProvider(LocalWalletStrings provides EnglishStrings) {
-            SplashScreen(onContinue = {})
-        }
+    WalletPreviewHarness(locale = AppLocale.English, darkTheme = true) {
+        SplashScreen(onContinue = {})
     }
 }

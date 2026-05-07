@@ -33,6 +33,9 @@ import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.AppPreferences
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.data.InMemoryWalletRepository
+import com.coditria.walletai.resources.Res
+import com.coditria.walletai.resources.linked_accounts
+import org.jetbrains.compose.resources.stringResource
 import com.coditria.walletai.domain.model.User
 import com.coditria.walletai.domain.repository.WalletRepository
 import com.coditria.walletai.feature.common.WalletAppBottomNav
@@ -110,7 +113,7 @@ fun SettingsScreen(
                 Divider()
                 SettingsRow(
                     title = s.accountsCards,
-                    subtitle = s.linkedAccounts(3),
+                    subtitle = stringResource(Res.string.linked_accounts, 3),
                     iconTint = WalletTheme.colors.good,
                     iconBg = WalletTheme.colors.good.copy(alpha = 0.10f),
                     icon = { WalletIconCard(size = 17.dp, color = WalletTheme.colors.good) },

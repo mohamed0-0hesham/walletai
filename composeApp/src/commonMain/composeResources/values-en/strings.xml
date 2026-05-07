@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash -->
+    <string name="app_name">WalletAI</string>
+    <string name="tagline">Your smart wallet · powered by AI</string>
+    <string name="version_loading">v 2.4.0 · Loading…</string>
+
+    <!-- Auth -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="create_account">Create account</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or_sign_in_with">Or sign in with</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="welcome_back">Welcome back 👋</string>
+    <string name="welcome_back_sub">Sign in to keep managing your money smartly</string>
+    <string name="create_title">Create your account</string>
+    <string name="create_sub">One minute and you\'re in control of your money</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="mobile">Mobile number</string>
+    <string name="password_placeholder">At least 8 characters</string>
+    <string name="password_strength_good">Good strength · add a symbol to make it stronger</string>
+    <string name="agree_terms">I agree to the Terms &amp; Conditions and Privacy Policy</string>
+
+    <!-- Dashboard -->
+    <string name="good_morning">Good morning 👋</string>
+    <string name="total_balance">Total balance</string>
+    <string name="net_this_month">+%1$s %2$s net this month</string>
+    <string name="income">Income</string>
+    <string name="expenses">Expenses</string>
+    <string name="add">Add</string>
+    <string name="voice">Voice</string>
+    <string name="transfer">Transfer</string>
+    <string name="goals">Goals</string>
+    <string name="analysis">Analysis</string>
+    <string name="more">More ‹</string>
+    <string name="view_all">View all ‹</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="upcoming_installments">Upcoming installments</string>
+    <string name="recent_transactions">Latest transactions</string>
+
+    <!-- Add transaction -->
+    <string name="new_transaction">New transaction</string>
+    <string name="expense">Expense</string>
+    <string name="tell_me_about_tx">Tell me about the transaction</string>
+    <string name="ai_understanding">AI · text understanding</string>
+    <string name="amount">Amount</string>
+    <string name="ai">AI</string>
+    <string name="auto_suggestions">Auto suggestions</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="account">Account</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_transaction">Save transaction</string>
+
+    <!-- Voice -->
+    <string name="voice_assistant">Voice assistant</string>
+    <string name="listening">Listening</string>
+    <string name="say_in_arabic">Say your transaction</string>
+    <string name="live">Live</string>
+    <string name="transcribing">Transcribing</string>
+
+    <!-- Installments -->
+    <string name="installments">Installments</string>
+    <string name="total_remaining_debt">Total remaining debt</string>
+    <string name="monthly">Monthly</string>
+    <string name="remaining">Remaining</string>
+    <string name="tab_active">Active</string>
+    <string name="tab_calendar">Calendar</string>
+    <string name="tab_done">Done</string>
+    <string name="pressure_map">Monthly pressure map</string>
+    <string name="per_month_suffix">/mo</string>
+    <string name="months_word">months</string>
+    <string name="paid_of_total">%1$d of %2$d</string>
+
+    <!-- Reports -->
+    <string name="reports">Reports</string>
+    <string name="financial_health">Financial health</string>
+    <string name="verdict_good">Good</string>
+    <string name="out_of">out of %1$d</string>
+    <string name="expense_breakdown">Expense breakdown</string>
+    <string name="smart_insights">Smart insights &amp; notes</string>
+    <string name="expenses_unit">EGP spent</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="account_section">Account</string>
+    <string name="profile">Profile</string>
+    <string name="profile_sub">Edit your name &amp; photo</string>
+    <string name="accounts_cards">Accounts &amp; cards</string>
+    <string name="linked_accounts">%1$d linked accounts</string>
+    <string name="limits_budgets">Limits &amp; budgets</string>
+    <string name="set_monthly_budget">Set a monthly budget</string>
+    <string name="preferences">Preferences</string>
+    <string name="appearance">Appearance</string>
+    <string name="appearance_sub">Light or dark</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="language">Language</string>
+    <string name="language_sub">Arabic or English</string>
+    <string name="arabic">العربية</string>
+    <string name="english">English</string>
+    <string name="currency">Currency</string>
+    <string name="egyptian_pound">Egyptian Pound</string>
+    <string name="notifications">Notifications</string>
+    <string name="notifications_sub">Bill &amp; spending alerts</string>
+    <string name="security_privacy">Security &amp; privacy</string>
+    <string name="change_password">Change password</string>
+    <string name="change_password_sub">Last updated 3 months ago</string>
+    <string name="biometrics">Fingerprint / Face ID</string>
+    <string name="biometrics_sub">Fast and secure sign-in</string>
+    <string name="two_factor">Two-factor authentication</string>
+    <string name="two_factor_sub">Extra layer of protection</string>
+    <string name="support">Support</string>
+    <string name="help_center">Help center</string>
+    <string name="terms_privacy">Terms &amp; Privacy</string>
+    <string name="sign_out">Log out</string>
+    <string name="version_line">WalletAI · v 2.4.0</string>
+    <string name="pro_membership">Pro membership</string>
+
+    <!-- Bottom nav -->
+    <string name="nav_home">Home</string>
+    <string name="nav_transactions">Transactions</string>
+    <string name="nav_reports">Reports</string>
+    <string name="nav_settings">Settings</string>
+</resources>

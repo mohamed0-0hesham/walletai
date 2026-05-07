@@ -21,6 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.data.InMemoryWalletRepository
+import com.coditria.walletai.resources.Res
+import com.coditria.walletai.resources.net_this_month
+import org.jetbrains.compose.resources.stringResource
 import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.domain.model.Transaction
 import com.coditria.walletai.domain.model.TransactionCategory
@@ -88,7 +91,11 @@ fun DashboardScreen(
                 currency = state.balance.total.currency,
                 onToggleVisibility = viewModel::toggleBalanceVisibility,
                 visibilityIcon = { WalletIconEye(color = androidx.compose.ui.graphics.Color.White) },
-                subtitle = s.netThisMonth(state.balance.netDelta.amount.formatThousands(), state.balance.netDelta.currency),
+                subtitle = stringResource(
+                    Res.string.net_this_month,
+                    state.balance.netDelta.amount.formatThousands(),
+                    state.balance.netDelta.currency,
+                ),
                 modifier = Modifier.padding(horizontal = 18.dp),
                 pillsContent = {
                     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
