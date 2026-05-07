@@ -26,8 +26,13 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.remember
+import androidx.compose.ui.tooling.preview.Preview
+import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
+import com.coditria.walletai.data.InMemoryWalletRepository
 import com.coditria.walletai.domain.model.AiInsight
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.domain.model.CategoryBreakdown
 import com.coditria.walletai.domain.model.FinancialHealth
 import com.coditria.walletai.domain.model.InsightTone
@@ -42,7 +47,7 @@ import com.coditria.walletai.feature.dashboard.formatThousands
 import com.coditria.walletai.navigation.Route
 import com.walletai.core.designsystem.components.ChipStyle
 import com.walletai.core.designsystem.components.WalletChip
-import com.walletai.core.designsystem.components.WalletTopBar
+import com.coditria.walletai.designsystem.components.WalletTopBar
 import com.walletai.core.designsystem.theme.WalletTheme
 
 class ReportsViewModel(repository: WalletRepository) {
@@ -335,5 +340,23 @@ private fun InsightCard(ins: AiInsight) {
                 color = WalletTheme.colors.muted,
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun ReportsScreenArabicPreview() {
+    WalletPreviewHarness(locale = AppLocale.Arabic) {
+        val vm = remember { ReportsViewModel(InMemoryWalletRepository()) }
+        ReportsScreen(viewModel = vm, onBack = {}, onAdd = {}, onSelect = {})
+    }
+}
+
+@Preview
+@Composable
+private fun ReportsScreenEnglishPreview() {
+    WalletPreviewHarness(locale = AppLocale.English) {
+        val vm = remember { ReportsViewModel(InMemoryWalletRepository()) }
+        ReportsScreen(viewModel = vm, onBack = {}, onAdd = {}, onSelect = {})
     }
 }

@@ -16,8 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.remember
+import androidx.compose.ui.tooling.preview.Preview
+import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
-import com.coditria.walletai.domain.model.Money
+import com.coditria.walletai.data.InMemoryWalletRepository
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.domain.model.Transaction
 import com.coditria.walletai.domain.model.TransactionCategory
 import com.coditria.walletai.domain.model.TransactionType
@@ -40,10 +44,10 @@ import com.walletai.core.designsystem.components.IconBgStyle
 import com.walletai.core.designsystem.components.ProgressStyle
 import com.walletai.core.designsystem.components.WalletBalanceHero
 import com.walletai.core.designsystem.components.WalletBalancePill
-import com.walletai.core.designsystem.components.WalletGreetingBar
+import com.coditria.walletai.designsystem.components.WalletGreetingBar
 import com.walletai.core.designsystem.components.WalletInstallmentCard
 import com.walletai.core.designsystem.components.WalletQuickAction
-import com.walletai.core.designsystem.components.WalletSectionHeader
+import com.coditria.walletai.designsystem.components.WalletSectionHeader
 import com.walletai.core.designsystem.components.WalletTransactionRow
 import com.walletai.core.designsystem.theme.WalletTheme
 
@@ -246,4 +250,30 @@ internal fun Long.formatThousands(): String {
     val rev = s.reversed()
     val groups = rev.chunked(3).joinToString(",")
     return groups.reversed()
+}
+
+@Preview
+@Composable
+private fun DashboardScreenArabicPreview() {
+    WalletPreviewHarness(locale = AppLocale.Arabic) {
+        val vm = remember { DashboardViewModel(InMemoryWalletRepository()) }
+        DashboardScreen(
+            viewModel = vm,
+            onAdd = {}, onVoice = {}, onInstallments = {},
+            onReports = {}, onSettings = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun DashboardScreenEnglishDarkPreview() {
+    WalletPreviewHarness(locale = AppLocale.English, darkTheme = true) {
+        val vm = remember { DashboardViewModel(InMemoryWalletRepository()) }
+        DashboardScreen(
+            viewModel = vm,
+            onAdd = {}, onVoice = {}, onInstallments = {},
+            onReports = {}, onSettings = {},
+        )
+    }
 }

@@ -38,8 +38,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
+import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.feature.common.WalletIconCheck
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.feature.common.WalletIconClose
 import com.coditria.walletai.feature.common.WalletIconMic
 import com.coditria.walletai.feature.common.WalletPhoneStatusBar
@@ -310,3 +313,19 @@ private fun VoiceCircleButton(onClick: () -> Unit, content: @Composable () -> Un
 }
 
 private fun Int.pad2(): String = if (this < 10) "0$this" else "$this"
+
+@Preview
+@Composable
+private fun VoiceScreenArabicPreview() {
+    WalletPreviewHarness(locale = AppLocale.Arabic, darkTheme = true) {
+        VoiceScreen(onCancel = {}, onConfirm = {})
+    }
+}
+
+@Preview
+@Composable
+private fun VoiceScreenEnglishPreview() {
+    WalletPreviewHarness(locale = AppLocale.English, darkTheme = true) {
+        VoiceScreen(onCancel = {}, onConfirm = {})
+    }
+}

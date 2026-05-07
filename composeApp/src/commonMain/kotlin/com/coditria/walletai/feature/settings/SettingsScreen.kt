@@ -28,12 +28,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.AppPreferences
 import com.coditria.walletai.app.LocalWalletStrings
+import com.coditria.walletai.data.InMemoryWalletRepository
 import com.coditria.walletai.domain.model.User
 import com.coditria.walletai.domain.repository.WalletRepository
 import com.coditria.walletai.feature.common.WalletAppBottomNav
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.feature.common.WalletIconBell
 import com.coditria.walletai.feature.common.WalletIconCard
 import com.coditria.walletai.feature.common.WalletIconChevronLeft
@@ -46,7 +49,7 @@ import com.coditria.walletai.feature.common.WalletPhoneStatusBar
 import com.coditria.walletai.navigation.Route
 import com.walletai.core.designsystem.components.ChipStyle
 import com.walletai.core.designsystem.components.WalletChip
-import com.walletai.core.designsystem.components.WalletTopBar
+import com.coditria.walletai.designsystem.components.WalletTopBar
 import com.walletai.core.designsystem.theme.WalletTheme
 
 class SettingsViewModel(repository: WalletRepository) {
@@ -458,6 +461,34 @@ private fun SegToggleItem(label: String, selected: Boolean, onClick: () -> Unit)
                 fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
             ),
             color = if (selected) WalletTheme.colors.ink else WalletTheme.colors.muted,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SettingsScreenArabicPreview() {
+    WalletPreviewHarness(locale = AppLocale.Arabic) {
+        val vm = remember { SettingsViewModel(InMemoryWalletRepository()) }
+        val prefs = remember { AppPreferences(initialLocale = AppLocale.Arabic) }
+        SettingsScreen(
+            viewModel = vm,
+            preferences = prefs,
+            onBack = {}, onSignOut = {}, onAdd = {}, onSelect = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SettingsScreenEnglishDarkPreview() {
+    WalletPreviewHarness(locale = AppLocale.English, darkTheme = true) {
+        val vm = remember { SettingsViewModel(InMemoryWalletRepository()) }
+        val prefs = remember { AppPreferences(initialDarkMode = true, initialLocale = AppLocale.English) }
+        SettingsScreen(
+            viewModel = vm,
+            preferences = prefs,
+            onBack = {}, onSignOut = {}, onAdd = {}, onSelect = {},
         )
     }
 }

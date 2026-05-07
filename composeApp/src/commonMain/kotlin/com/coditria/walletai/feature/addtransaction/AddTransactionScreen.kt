@@ -2,7 +2,6 @@ package com.coditria.walletai.feature.addtransaction
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,9 +19,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.remember
+import androidx.compose.ui.tooling.preview.Preview
+import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
+import com.coditria.walletai.data.InMemoryWalletRepository
 import com.coditria.walletai.domain.model.TransactionType
-import com.coditria.walletai.feature.common.WalletIconChevronLeft
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.feature.common.WalletIconCheck
 import com.coditria.walletai.feature.common.WalletIconClose
 import com.coditria.walletai.feature.common.WalletIconCoffee
@@ -40,7 +43,7 @@ import com.walletai.core.designsystem.components.WalletConfidenceBar
 import com.walletai.core.designsystem.components.WalletGhostButton
 import com.walletai.core.designsystem.components.WalletPrimaryButton
 import com.walletai.core.designsystem.components.WalletSegmentedControl
-import com.walletai.core.designsystem.components.WalletTopBar
+import com.coditria.walletai.designsystem.components.WalletTopBar
 import com.walletai.core.designsystem.theme.WalletTheme
 
 @Composable
@@ -189,5 +192,23 @@ fun AddTransactionScreen(
             )
         }
         Spacer(Modifier.height(24.dp))
+    }
+}
+
+@Preview
+@Composable
+private fun AddTransactionScreenArabicPreview() {
+    WalletPreviewHarness(locale = AppLocale.Arabic) {
+        val vm = remember { AddTransactionViewModel(InMemoryWalletRepository()) }
+        AddTransactionScreen(viewModel = vm, onSave = {}, onCancel = {})
+    }
+}
+
+@Preview
+@Composable
+private fun AddTransactionScreenEnglishPreview() {
+    WalletPreviewHarness(locale = AppLocale.English) {
+        val vm = remember { AddTransactionViewModel(InMemoryWalletRepository()) }
+        AddTransactionScreen(viewModel = vm, onSave = {}, onCancel = {})
     }
 }

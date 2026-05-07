@@ -26,8 +26,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.feature.common.WalletIconEye
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.feature.common.WalletIconLock
 import com.coditria.walletai.feature.common.WalletIconMail
 import com.coditria.walletai.feature.common.WalletIconPhone
@@ -216,5 +219,21 @@ private fun PasswordStrengthBars(strength: Int) {
                     ),
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SignUpScreenArabicPreview() {
+    WalletPreviewHarness(locale = AppLocale.Arabic) {
+        SignUpScreen(onSignUp = {}, onGoToSignIn = {}, onBack = {})
+    }
+}
+
+@Preview
+@Composable
+private fun SignUpScreenEnglishPreview() {
+    WalletPreviewHarness(locale = AppLocale.English) {
+        SignUpScreen(onSignUp = {}, onGoToSignIn = {}, onBack = {})
     }
 }

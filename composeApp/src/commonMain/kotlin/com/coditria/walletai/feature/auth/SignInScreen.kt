@@ -24,8 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
 import com.coditria.walletai.feature.common.WalletIconChevronLeft
+import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.feature.common.WalletIconEye
 import com.coditria.walletai.feature.common.WalletIconLock
 import com.coditria.walletai.feature.common.WalletIconMail
@@ -203,3 +206,19 @@ private fun SocialButton(label: String, modifier: Modifier = Modifier) {
     }
 }
 
+
+@Preview
+@Composable
+private fun SignInScreenArabicPreview() {
+    WalletPreviewHarness(locale = AppLocale.Arabic) {
+        SignInScreen(onSignIn = {}, onGoToSignUp = {}, onBack = {})
+    }
+}
+
+@Preview
+@Composable
+private fun SignInScreenEnglishPreview() {
+    WalletPreviewHarness(locale = AppLocale.English) {
+        SignInScreen(onSignIn = {}, onGoToSignUp = {}, onBack = {})
+    }
+}
