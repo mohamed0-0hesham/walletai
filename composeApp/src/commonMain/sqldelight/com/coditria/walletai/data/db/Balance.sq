@@ -1,0 +1,20 @@
+-- Single-row balance summary (id always 1).
+CREATE TABLE balanceSummaryEntity (
+    id INTEGER NOT NULL PRIMARY KEY DEFAULT 1,
+    totalMinor INTEGER NOT NULL,
+    incomeMinor INTEGER NOT NULL,
+    expensesMinor INTEGER NOT NULL,
+    netDeltaMinor INTEGER NOT NULL,
+    currency TEXT NOT NULL
+);
+
+selectSummary:
+SELECT * FROM balanceSummaryEntity WHERE id = 1;
+
+upsertSummary:
+INSERT OR REPLACE INTO balanceSummaryEntity(
+    id, totalMinor, incomeMinor, expensesMinor, netDeltaMinor, currency
+) VALUES (1, ?, ?, ?, ?, ?);
+
+count:
+SELECT COUNT(*) FROM balanceSummaryEntity;

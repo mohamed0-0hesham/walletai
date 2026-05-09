@@ -1,0 +1,18 @@
+CREATE TABLE userEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
+    email TEXT NOT NULL,
+    avatarInitial TEXT NOT NULL,
+    tier TEXT NOT NULL
+);
+
+selectCurrent:
+SELECT * FROM userEntity LIMIT 1;
+
+count:
+SELECT COUNT(*) FROM userEntity;
+
+upsert:
+INSERT OR REPLACE INTO userEntity(id, firstName, lastName, email, avatarInitial, tier)
+VALUES (?, ?, ?, ?, ?, ?);

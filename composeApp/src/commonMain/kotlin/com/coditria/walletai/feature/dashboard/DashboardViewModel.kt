@@ -5,9 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.coditria.walletai.domain.model.BalanceSummary
 import com.coditria.walletai.domain.model.Installment
+import com.coditria.walletai.domain.model.Money
 import com.coditria.walletai.domain.model.Transaction
 import com.coditria.walletai.domain.model.User
-import com.coditria.walletai.domain.repository.WalletRepository
+import com.coditria.walletai.domain.repository.BalanceRepository
+import com.coditria.walletai.domain.repository.InstallmentRepository
+import com.coditria.walletai.domain.repository.TransactionRepository
+import com.coditria.walletai.domain.repository.UserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 data class DashboardUiState(
     val user: User,
@@ -25,18 +31,29 @@ enum class ChartRange(val label: String) {
 }
 
 /**
- * Holds dashboard state. Depends only on the repository abstraction.
+ * Orchestrates dashboard data via four narrow repositories (ISP) instead of
+ * one god repository. Loads on init via the supplied [scope].
  */
-class DashboardViewModel(repository: WalletRepository) {
-    var state: DashboardUiState by mutableStateOf(
-        DashboardUiState(
-            user = repository.currentUser(),
-            balance = repository.balanceSummary(),
-            transactions = repository.recentTransactions(),
-            upcomingInstallments = repository.upcomingInstallments(),
-        ),
-    )
+class DashboardViewModel(
+    private val userRepository: UserRepository,
+    private val balanceRepository: BalanceRepository,
+    private val transactionRepository: TransactionRepository,
+    private val installmentRepository: InstallmentRepository,
+    scope: CoroutineScope,
+) {
+    var state: DashboardUiState by mutableStateOf(EmptyState)
         private set
+
+    init {
+        scope.launch {
+            state = DashboardUiState(
+                user = userRepository.currentUser(),
+                balance = balanceRepository.summary(),
+                transactions = transactionRepository.recent(),
+                upcomingInstallments = installmentRepository.upcoming(),
+            )
+        }
+    }
 
     fun toggleBalanceVisibility() {
         state = state.copy(balanceVisible = !state.balanceVisible)
@@ -46,3 +63,15 @@ class DashboardViewModel(repository: WalletRepository) {
         state = state.copy(chartTab = range)
     }
 }
+
+private val EmptyState = DashboardUiState(
+    user = User("", "", "", "", "", ""),
+    balance = BalanceSummary(
+        total = Money(0, ""),
+        income = Money(0, ""),
+        expenses = Money(0, ""),
+        netDelta = Money(0, ""),
+    ),
+    transactions = emptyList(),
+    upcomingInstallments = emptyList(),
+)

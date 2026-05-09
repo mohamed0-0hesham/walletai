@@ -30,15 +30,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
-import com.coditria.walletai.data.InMemoryWalletRepository
+import androidx.compose.runtime.rememberCoroutineScope
+import com.coditria.walletai.data.di.DataGraph
 import com.coditria.walletai.resources.Res
 import com.coditria.walletai.resources.paid_of_total
 import org.jetbrains.compose.resources.stringResource
 import com.coditria.walletai.domain.model.HeatmapMonth
 import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.domain.model.Installment
-import com.coditria.walletai.domain.repository.WalletRepository
 import com.coditria.walletai.feature.common.WalletAppBottomNav
+import kotlinx.coroutines.launch
 import com.coditria.walletai.feature.common.WalletIconChevronLeft
 import com.coditria.walletai.feature.common.WalletIconPhone
 import com.coditria.walletai.feature.common.WalletIconSearch
@@ -50,13 +51,32 @@ import com.walletai.core.designsystem.components.WalletHeatmapGrid
 import com.coditria.walletai.designsystem.components.WalletTopBar
 import com.walletai.core.designsystem.theme.WalletTheme
 
-class InstallmentsViewModel(repository: WalletRepository) {
-    val summary = repository.installmentSummary()
-    val items = repository.allInstallments()
-    val heatmap = repository.heatmap()
-
+class InstallmentsViewModel(
+    private val installmentRepository: com.coditria.walletai.domain.repository.InstallmentRepository,
+    scope: kotlinx.coroutines.CoroutineScope,
+) {
+    var summary: com.coditria.walletai.domain.model.InstallmentSummary by mutableStateOf(
+        com.coditria.walletai.domain.model.InstallmentSummary(
+            totalRemaining = com.coditria.walletai.domain.model.Money(0, ""),
+            monthly = com.coditria.walletai.domain.model.Money(0, ""),
+            remainingMonths = 0,
+        ),
+    )
+        private set
+    var items: List<com.coditria.walletai.domain.model.Installment> by mutableStateOf(emptyList())
+        private set
+    var heatmap: List<com.coditria.walletai.domain.model.HeatmapMonth> by mutableStateOf(emptyList())
+        private set
     var selectedTab: InstallmentsTab by mutableStateOf(InstallmentsTab.Active)
         private set
+
+    init {
+        scope.launch {
+            summary = installmentRepository.summary()
+            items = installmentRepository.all()
+            heatmap = installmentRepository.pressureHeatmap(year = 2026)
+        }
+    }
 
     fun selectTab(tab: InstallmentsTab) { selectedTab = tab }
 }
@@ -381,7 +401,9 @@ private fun InstallmentBigCard(inst: Installment) {
 @Composable
 private fun InstallmentsScreenArabicPreview() {
     WalletPreviewHarness(locale = AppLocale.Arabic) {
-        val vm = remember { InstallmentsViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = rememberCoroutineScope()
+        val vm = remember { InstallmentsViewModel(data.installmentRepository, scope) }
         InstallmentsScreen(viewModel = vm, onBack = {}, onAdd = {}, onSelect = {})
     }
 }
@@ -390,7 +412,9 @@ private fun InstallmentsScreenArabicPreview() {
 @Composable
 private fun InstallmentsScreenEnglishPreview() {
     WalletPreviewHarness(locale = AppLocale.English) {
-        val vm = remember { InstallmentsViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = rememberCoroutineScope()
+        val vm = remember { InstallmentsViewModel(data.installmentRepository, scope) }
         InstallmentsScreen(viewModel = vm, onBack = {}, onAdd = {}, onSelect = {})
     }
 }

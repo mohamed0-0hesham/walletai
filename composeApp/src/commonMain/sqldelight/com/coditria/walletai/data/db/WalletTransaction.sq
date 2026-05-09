@@ -1,0 +1,25 @@
+CREATE TABLE walletTransactionEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    subtitle TEXT NOT NULL,
+    amountMinor INTEGER NOT NULL,
+    currency TEXT NOT NULL,
+    type TEXT NOT NULL,
+    category TEXT NOT NULL,
+    createdAtEpochMs INTEGER NOT NULL
+);
+
+CREATE INDEX walletTransaction_recent ON walletTransactionEntity(createdAtEpochMs DESC);
+
+selectRecent:
+SELECT * FROM walletTransactionEntity
+ORDER BY createdAtEpochMs DESC
+LIMIT :max;
+
+count:
+SELECT COUNT(*) FROM walletTransactionEntity;
+
+upsert:
+INSERT OR REPLACE INTO walletTransactionEntity(
+    id, title, subtitle, amountMinor, currency, type, category, createdAtEpochMs
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
