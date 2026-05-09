@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 data class AddTransactionUiState(
     val type: TransactionType = TransactionType.Expense,
-    val utterance: String = "صرفت 35 جنيه فطار من بتاع الكشري",
+    val utterance: String = "",
     val suggestion: AiSuggestion = EmptySuggestion,
     val saving: Boolean = false,
 )
@@ -23,7 +23,7 @@ data class AddTransactionUiState(
 private val EmptySuggestion = AiSuggestion(
     parsedText = "",
     amount = "0",
-    currency = "ج.م",
+    currency = "",
     category = TransactionCategory.Other,
     categoryLabel = "",
     date = "",

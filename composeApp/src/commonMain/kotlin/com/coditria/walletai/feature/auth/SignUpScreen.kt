@@ -39,13 +39,13 @@ import com.walletai.core.designsystem.components.WalletPrimaryButton
 import com.walletai.core.designsystem.theme.WalletTheme
 
 data class SignUpState(
-    val firstName: String = "هشام",
-    val lastName: String = "محمد",
+    val firstName: String = "",
+    val lastName: String = "",
     val email: String = "",
     val phone: String = "",
-    val password: String = "strongPass#9",
-    val passwordStrength: Int = 3, // out of 4
-    val termsAccepted: Boolean = true,
+    val password: String = "",
+    val passwordStrength: Int = 0, // out of 4
+    val termsAccepted: Boolean = false,
 )
 
 class SignUpViewModel {

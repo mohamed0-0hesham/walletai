@@ -11,7 +11,7 @@ class SqlDelightUserLocalDataSource(
 ) : UserLocalDataSource {
 
     override suspend fun currentUser(): UserEntity = withContext(Dispatchers.Default) {
-        val row = db.userQueries.selectCurrent().executeAsOne()
+        val row = db.userQueries.selectCurrent().executeAsOneOrNull() ?: return@withContext EmptyUser
         UserEntity(
             id = row.id,
             firstName = row.firstName,
@@ -19,6 +19,13 @@ class SqlDelightUserLocalDataSource(
             email = row.email,
             avatarInitial = row.avatarInitial,
             tier = row.tier,
+        )
+    }
+
+    private companion object {
+        val EmptyUser = UserEntity(
+            id = "", firstName = "", lastName = "", email = "",
+            avatarInitial = "", tier = "",
         )
     }
 }
