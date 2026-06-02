@@ -21,12 +21,20 @@ class SqlDelightInstallmentLocalDataSource(
     }
 
     override suspend fun summary(): InstallmentSummaryEntity = withContext(Dispatchers.Default) {
-        val row = db.installmentQueries.selectSummary().executeAsOne()
+        val row = db.installmentQueries.selectSummary().executeAsOneOrNull()
+            ?: return@withContext EmptySummary
         InstallmentSummaryEntity(
             totalRemainingMinor = row.totalRemainingMinor,
             monthlyMinor = row.monthlyMinor,
             currency = row.currency,
             remainingMonths = row.remainingMonths.toInt(),
+        )
+    }
+
+    private companion object {
+        val EmptySummary = InstallmentSummaryEntity(
+            totalRemainingMinor = 0L, monthlyMinor = 0L,
+            currency = "", remainingMonths = 0,
         )
     }
 

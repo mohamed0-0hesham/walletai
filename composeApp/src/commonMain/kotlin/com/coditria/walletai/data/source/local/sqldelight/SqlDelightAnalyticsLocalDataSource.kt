@@ -24,12 +24,19 @@ class SqlDelightAnalyticsLocalDataSource(
     }
 
     override suspend fun financialHealth(): FinancialHealthEntity = withContext(Dispatchers.Default) {
-        val row = db.analyticsQueries.selectHealth().executeAsOne()
+        val row = db.analyticsQueries.selectHealth().executeAsOneOrNull()
+            ?: return@withContext EmptyHealth
         FinancialHealthEntity(
             score = row.score.toInt(),
             maxScore = row.maxScore.toInt(),
             verdict = row.verdict,
             description = row.description,
+        )
+    }
+
+    private companion object {
+        val EmptyHealth = FinancialHealthEntity(
+            score = 0, maxScore = 0, verdict = "", description = "",
         )
     }
 

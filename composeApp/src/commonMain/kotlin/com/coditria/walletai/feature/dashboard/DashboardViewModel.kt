@@ -24,11 +24,7 @@ data class DashboardUiState(
     val chartTab: ChartRange = ChartRange.Month,
 )
 
-enum class ChartRange(val label: String) {
-    Week("أسبوع"),
-    Month("شهر"),
-    Year("سنة"),
-}
+enum class ChartRange { Week, Month, Year }
 
 /**
  * Orchestrates dashboard data via four narrow repositories (ISP) instead of

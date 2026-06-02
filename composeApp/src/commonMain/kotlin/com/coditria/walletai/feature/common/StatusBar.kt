@@ -39,23 +39,6 @@ fun WalletPhoneStatusBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(
-            text = time,
-            style = WalletTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-            color = fg,
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            repeat(3) {
-                Box(
-                    modifier = Modifier
-                        .size(5.dp)
-                        .clip(CircleShape)
-                        .background(fg),
-                )
-            }
-        }
+
     }
 }

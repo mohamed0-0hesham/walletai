@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 data class SignInState(
-    val email: String = "hisham@walletai.eg",
-    val password: String = "password123",
+    val email: String = "",
+    val password: String = "",
     val passwordVisible: Boolean = false,
-    val rememberMe: Boolean = true,
+    val rememberMe: Boolean = false,
 )
 
 class SignInViewModel {

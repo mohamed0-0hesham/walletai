@@ -57,7 +57,7 @@ fun DashboardChartCard(
         ) {
             ChartRange.entries.forEach { range ->
                 ChartTab(
-                    label = labels[range] ?: range.label,
+                    label = labels.getValue(range),
                     selected = range == selectedRange,
                     onClick = { onSelect(range) },
                     modifier = Modifier.weight(1f),

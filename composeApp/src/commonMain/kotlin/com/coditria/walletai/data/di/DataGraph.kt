@@ -1,7 +1,6 @@
 package com.coditria.walletai.data.di
 
 import com.coditria.walletai.data.db.DatabaseDriverFactory
-import com.coditria.walletai.data.db.DatabaseSeeder
 import com.coditria.walletai.data.db.WalletDatabase
 import com.coditria.walletai.data.preview.PreviewFakes
 import com.coditria.walletai.data.repository.AiSuggestionRepositoryImpl
@@ -34,10 +33,11 @@ import com.coditria.walletai.domain.repository.UserRepository
  * exposes the domain-level repository contracts so feature code never depends
  * on a concrete data source.
  *
- * Production: [sqlDelight] — opens the SQLite database, seeds it on first run,
- * routes every persistent repository through SQLDelight. AI suggestions are
- * routed through [StubAiSuggestionLocalDataSource] until a real inference path
- * is wired in.
+ * Production: [sqlDelight] — opens the SQLite database and routes every
+ * persistent repository through SQLDelight. The database starts empty;
+ * onboarding / sync flows are responsible for populating it. AI suggestions
+ * are routed through [StubAiSuggestionLocalDataSource] until a real inference
+ * path is wired in.
  *
  * Tooling: [previewFakes] — returns a graph backed by [PreviewFakes] for IDE
  * previews and unit tests, without spinning up a SQLite driver.
@@ -54,7 +54,6 @@ class DataGraph private constructor(
 
         suspend fun sqlDelight(driverFactory: DatabaseDriverFactory): DataGraph {
             val db = WalletDatabase(driverFactory.create())
-            DatabaseSeeder(db).seedIfEmpty()
             return build(
                 userLocal = SqlDelightUserLocalDataSource(db),
                 balanceLocal = SqlDelightBalanceLocalDataSource(db),
