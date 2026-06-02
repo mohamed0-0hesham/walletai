@@ -1,0 +1,78 @@
+-- Installments — single canonical table. Dashboard "upcoming" view is just a
+-- limited query (LIMIT n WHERE isWarning OR earliest). Two flag columns let us
+-- preserve the prototype's two distinct seed lists during migration.
+CREATE TABLE installmentEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    provider TEXT NOT NULL,
+    totalMonths INTEGER NOT NULL,
+    paidMonths INTEGER NOT NULL,
+    monthlyAmountMinor INTEGER NOT NULL,
+    currency TEXT NOT NULL,
+    nextDueLabel TEXT NOT NULL,
+    isWarning INTEGER NOT NULL,
+    style TEXT NOT NULL,
+    showInUpcoming INTEGER NOT NULL,
+    showInAllList INTEGER NOT NULL,
+    sortOrder INTEGER NOT NULL
+);
+
+selectAll:
+SELECT * FROM installmentEntity
+WHERE showInAllList = 1
+ORDER BY sortOrder ASC;
+
+selectUpcoming:
+SELECT * FROM installmentEntity
+WHERE showInUpcoming = 1
+ORDER BY sortOrder ASC
+LIMIT :max;
+
+count:
+SELECT COUNT(*) FROM installmentEntity;
+
+upsert:
+INSERT OR REPLACE INTO installmentEntity(
+    id, name, provider, totalMonths, paidMonths, monthlyAmountMinor, currency,
+    nextDueLabel, isWarning, style, showInUpcoming, showInAllList, sortOrder
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-- Single-row summary, id is fixed at 1.
+CREATE TABLE installmentSummaryEntity (
+    id INTEGER NOT NULL PRIMARY KEY DEFAULT 1,
+    totalRemainingMinor INTEGER NOT NULL,
+    monthlyMinor INTEGER NOT NULL,
+    currency TEXT NOT NULL,
+    remainingMonths INTEGER NOT NULL
+);
+
+selectSummary:
+SELECT * FROM installmentSummaryEntity WHERE id = 1;
+
+upsertSummary:
+INSERT OR REPLACE INTO installmentSummaryEntity(
+    id, totalRemainingMinor, monthlyMinor, currency, remainingMonths
+) VALUES (1, ?, ?, ?, ?);
+
+CREATE TABLE heatmapMonthEntity (
+    year INTEGER NOT NULL,
+    monthIndex INTEGER NOT NULL,
+    label TEXT NOT NULL,
+    pressureLevel INTEGER NOT NULL,
+    totalMinor INTEGER NOT NULL,
+    currency TEXT NOT NULL,
+    PRIMARY KEY (year, monthIndex)
+);
+
+selectHeatmap:
+SELECT * FROM heatmapMonthEntity
+WHERE year = :year
+ORDER BY monthIndex ASC;
+
+upsertHeatmap:
+INSERT OR REPLACE INTO heatmapMonthEntity(
+    year, monthIndex, label, pressureLevel, totalMinor, currency
+) VALUES (?, ?, ?, ?, ?, ?);
+
+countHeatmap:
+SELECT COUNT(*) FROM heatmapMonthEntity;

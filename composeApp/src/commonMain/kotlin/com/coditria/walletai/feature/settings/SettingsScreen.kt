@@ -32,12 +32,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.AppPreferences
 import com.coditria.walletai.app.LocalWalletStrings
-import com.coditria.walletai.data.InMemoryWalletRepository
+import com.coditria.walletai.data.di.DataGraph
+import kotlinx.coroutines.launch
 import com.coditria.walletai.resources.Res
 import com.coditria.walletai.resources.linked_accounts
 import org.jetbrains.compose.resources.stringResource
 import com.coditria.walletai.domain.model.User
-import com.coditria.walletai.domain.repository.WalletRepository
 import com.coditria.walletai.feature.common.WalletAppBottomNav
 import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.feature.common.WalletIconBell
@@ -55,8 +55,12 @@ import com.walletai.core.designsystem.components.WalletChip
 import com.coditria.walletai.designsystem.components.WalletTopBar
 import com.walletai.core.designsystem.theme.WalletTheme
 
-class SettingsViewModel(repository: WalletRepository) {
-    val user: User = repository.currentUser()
+class SettingsViewModel(
+    private val userRepository: com.coditria.walletai.domain.repository.UserRepository,
+    scope: kotlinx.coroutines.CoroutineScope,
+) {
+    var user: User by mutableStateOf(User("", "", "", "", "", ""))
+        private set
 
     var notificationsEnabled by mutableStateOf(true)
         private set
@@ -64,6 +68,10 @@ class SettingsViewModel(repository: WalletRepository) {
         private set
     var twoFactorEnabled by mutableStateOf(false)
         private set
+
+    init {
+        scope.launch { user = userRepository.currentUser() }
+    }
 
     fun toggleNotifications() { notificationsEnabled = !notificationsEnabled }
     fun toggleBiometrics() { biometricsEnabled = !biometricsEnabled }
@@ -472,7 +480,9 @@ private fun SegToggleItem(label: String, selected: Boolean, onClick: () -> Unit)
 @Composable
 private fun SettingsScreenArabicPreview() {
     WalletPreviewHarness(locale = AppLocale.Arabic) {
-        val vm = remember { SettingsViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = androidx.compose.runtime.rememberCoroutineScope()
+        val vm = remember { SettingsViewModel(data.userRepository, scope) }
         val prefs = remember { AppPreferences(initialLocale = AppLocale.Arabic) }
         SettingsScreen(
             viewModel = vm,
@@ -486,7 +496,9 @@ private fun SettingsScreenArabicPreview() {
 @Composable
 private fun SettingsScreenEnglishDarkPreview() {
     WalletPreviewHarness(locale = AppLocale.English, darkTheme = true) {
-        val vm = remember { SettingsViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = androidx.compose.runtime.rememberCoroutineScope()
+        val vm = remember { SettingsViewModel(data.userRepository, scope) }
         val prefs = remember { AppPreferences(initialDarkMode = true, initialLocale = AppLocale.English) }
         SettingsScreen(
             viewModel = vm,

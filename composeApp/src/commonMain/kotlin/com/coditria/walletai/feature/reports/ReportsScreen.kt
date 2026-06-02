@@ -16,6 +16,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +33,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
-import com.coditria.walletai.data.InMemoryWalletRepository
+import com.coditria.walletai.data.di.DataGraph
+import kotlinx.coroutines.launch
 import com.coditria.walletai.resources.Res
 import com.coditria.walletai.resources.out_of
 import org.jetbrains.compose.resources.stringResource
@@ -39,7 +43,6 @@ import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.domain.model.CategoryBreakdown
 import com.coditria.walletai.domain.model.FinancialHealth
 import com.coditria.walletai.domain.model.InsightTone
-import com.coditria.walletai.domain.repository.WalletRepository
 import com.coditria.walletai.feature.common.WalletAppBottomNav
 import com.coditria.walletai.feature.common.WalletIconArrowDownLeft
 import com.coditria.walletai.feature.common.WalletIconArrowUpRight
@@ -53,11 +56,32 @@ import com.walletai.core.designsystem.components.WalletChip
 import com.coditria.walletai.designsystem.components.WalletTopBar
 import com.walletai.core.designsystem.theme.WalletTheme
 
-class ReportsViewModel(repository: WalletRepository) {
-    val health: FinancialHealth = repository.financialHealth()
-    val breakdown: List<CategoryBreakdown> = repository.expenseBreakdown()
-    val insights: List<AiInsight> = repository.aiInsights()
-    val totalExpenses = repository.balanceSummary().expenses
+class ReportsViewModel(
+    private val analyticsRepository: com.coditria.walletai.domain.repository.AnalyticsRepository,
+    private val balanceRepository: com.coditria.walletai.domain.repository.BalanceRepository,
+    scope: kotlinx.coroutines.CoroutineScope,
+) {
+    var health: FinancialHealth by mutableStateOf(
+        FinancialHealth(score = 0, verdict = "", description = ""),
+    )
+        private set
+    var breakdown: List<CategoryBreakdown> by mutableStateOf(emptyList())
+        private set
+    var insights: List<AiInsight> by mutableStateOf(emptyList())
+        private set
+    var totalExpenses: com.coditria.walletai.domain.model.Money by mutableStateOf(
+        com.coditria.walletai.domain.model.Money(0, ""),
+    )
+        private set
+
+    init {
+        scope.launch {
+            health = analyticsRepository.financialHealth()
+            breakdown = analyticsRepository.expenseBreakdown()
+            insights = analyticsRepository.aiInsights()
+            totalExpenses = balanceRepository.summary().expenses
+        }
+    }
 }
 
 @Composable
@@ -350,7 +374,9 @@ private fun InsightCard(ins: AiInsight) {
 @Composable
 private fun ReportsScreenArabicPreview() {
     WalletPreviewHarness(locale = AppLocale.Arabic) {
-        val vm = remember { ReportsViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = androidx.compose.runtime.rememberCoroutineScope()
+        val vm = remember { ReportsViewModel(data.analyticsRepository, data.balanceRepository, scope) }
         ReportsScreen(viewModel = vm, onBack = {}, onAdd = {}, onSelect = {})
     }
 }
@@ -359,7 +385,9 @@ private fun ReportsScreenArabicPreview() {
 @Composable
 private fun ReportsScreenEnglishPreview() {
     WalletPreviewHarness(locale = AppLocale.English) {
-        val vm = remember { ReportsViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = androidx.compose.runtime.rememberCoroutineScope()
+        val vm = remember { ReportsViewModel(data.analyticsRepository, data.balanceRepository, scope) }
         ReportsScreen(viewModel = vm, onBack = {}, onAdd = {}, onSelect = {})
     }
 }

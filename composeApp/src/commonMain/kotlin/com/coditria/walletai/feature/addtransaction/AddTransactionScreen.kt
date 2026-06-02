@@ -23,7 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
-import com.coditria.walletai.data.InMemoryWalletRepository
+import androidx.compose.runtime.rememberCoroutineScope
+import com.coditria.walletai.data.di.DataGraph
 import com.coditria.walletai.domain.model.TransactionType
 import com.coditria.walletai.feature.common.WalletPreviewHarness
 import com.coditria.walletai.feature.common.WalletIconCheck
@@ -186,7 +187,7 @@ fun AddTransactionScreen(
             )
             WalletPrimaryButton(
                 text = s.saveTransaction,
-                onClick = onSave,
+                onClick = { viewModel.save(onSave) },
                 modifier = Modifier.weight(1f),
                 trailingIcon = { WalletIconCheck(color = Color.White) },
             )
@@ -199,7 +200,11 @@ fun AddTransactionScreen(
 @Composable
 private fun AddTransactionScreenArabicPreview() {
     WalletPreviewHarness(locale = AppLocale.Arabic) {
-        val vm = remember { AddTransactionViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = rememberCoroutineScope()
+        val vm = remember {
+            AddTransactionViewModel(data.aiSuggestionRepository, data.transactionRepository, scope)
+        }
         AddTransactionScreen(viewModel = vm, onSave = {}, onCancel = {})
     }
 }
@@ -208,7 +213,11 @@ private fun AddTransactionScreenArabicPreview() {
 @Composable
 private fun AddTransactionScreenEnglishPreview() {
     WalletPreviewHarness(locale = AppLocale.English) {
-        val vm = remember { AddTransactionViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = rememberCoroutineScope()
+        val vm = remember {
+            AddTransactionViewModel(data.aiSuggestionRepository, data.transactionRepository, scope)
+        }
         AddTransactionScreen(viewModel = vm, onSave = {}, onCancel = {})
     }
 }

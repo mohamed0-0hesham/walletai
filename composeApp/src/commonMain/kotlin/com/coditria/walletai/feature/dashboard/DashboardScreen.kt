@@ -20,7 +20,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.coditria.walletai.app.AppLocale
 import com.coditria.walletai.app.LocalWalletStrings
-import com.coditria.walletai.data.InMemoryWalletRepository
+import androidx.compose.runtime.rememberCoroutineScope
+import com.coditria.walletai.data.di.DataGraph
 import com.coditria.walletai.resources.Res
 import com.coditria.walletai.resources.net_this_month
 import org.jetbrains.compose.resources.stringResource
@@ -263,7 +264,17 @@ internal fun Long.formatThousands(): String {
 @Composable
 private fun DashboardScreenArabicPreview() {
     WalletPreviewHarness(locale = AppLocale.Arabic) {
-        val vm = remember { DashboardViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = rememberCoroutineScope()
+        val vm = remember {
+            DashboardViewModel(
+                data.userRepository,
+                data.balanceRepository,
+                data.transactionRepository,
+                data.installmentRepository,
+                scope,
+            )
+        }
         DashboardScreen(
             viewModel = vm,
             onAdd = {}, onVoice = {}, onInstallments = {},
@@ -276,7 +287,17 @@ private fun DashboardScreenArabicPreview() {
 @Composable
 private fun DashboardScreenEnglishDarkPreview() {
     WalletPreviewHarness(locale = AppLocale.English, darkTheme = true) {
-        val vm = remember { DashboardViewModel(InMemoryWalletRepository()) }
+        val data = remember { DataGraph.previewFakes() }
+        val scope = rememberCoroutineScope()
+        val vm = remember {
+            DashboardViewModel(
+                data.userRepository,
+                data.balanceRepository,
+                data.transactionRepository,
+                data.installmentRepository,
+                scope,
+            )
+        }
         DashboardScreen(
             viewModel = vm,
             onAdd = {}, onVoice = {}, onInstallments = {},
