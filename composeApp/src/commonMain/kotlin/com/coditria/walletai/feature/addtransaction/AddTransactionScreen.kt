@@ -1,6 +1,7 @@
 package com.coditria.walletai.feature.addtransaction
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -59,6 +62,7 @@ fun AddTransactionScreen(
 ) {
     val state = viewModel.state
     val s = LocalWalletStrings.current
+    val focusManager = LocalFocusManager.current
     val segmentStyle = when (state.type) {
         TransactionType.Expense -> SegmentStyle.Bad
         TransactionType.Income -> SegmentStyle.Good
@@ -69,6 +73,9 @@ fun AddTransactionScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(WalletTheme.colors.bg)
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = { focusManager.clearFocus() })
+            }
             .imePadding()
             .navigationBarsPadding()
             .verticalScroll(rememberScrollState()),
