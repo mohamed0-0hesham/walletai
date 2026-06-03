@@ -44,7 +44,9 @@ import com.walletai.core.designsystem.components.WalletConfidenceBar
 import com.walletai.core.designsystem.components.WalletGhostButton
 import com.walletai.core.designsystem.components.WalletPrimaryButton
 import com.walletai.core.designsystem.components.WalletSegmentedControl
+import com.walletai.core.designsystem.components.WalletTextField
 import com.coditria.walletai.designsystem.components.WalletTopBar
+import androidx.compose.ui.text.input.KeyboardType
 import com.walletai.core.designsystem.theme.WalletTheme
 
 @Composable
@@ -170,6 +172,68 @@ fun AddTransactionScreen(
             WalletConfidenceBar(
                 confidence = state.suggestion.confidence,
                 modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        Spacer(Modifier.height(14.dp))
+
+        // Manual entry card
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp)
+                .clip(WalletTheme.shapes.medium)
+                .background(WalletTheme.colors.surface)
+                .padding(16.dp),
+        ) {
+            Text(
+                text = s.tellMeAboutTx,
+                style = WalletTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = WalletTheme.colors.ink,
+            )
+            Spacer(Modifier.height(12.dp))
+            WalletTextField(
+                label = s.aiUnderstanding,
+                value = state.suggestion.parsedText,
+                onValueChange = viewModel::onParsedTextChange,
+            )
+            Spacer(Modifier.height(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                WalletTextField(
+                    label = s.amount,
+                    value = state.suggestion.amount,
+                    onValueChange = viewModel::onAmountChange,
+                    placeholder = "0",
+                    keyboardType = KeyboardType.Number,
+                    modifier = Modifier.weight(2f),
+                )
+                WalletTextField(
+                    label = "Currency",
+                    value = state.suggestion.currency,
+                    onValueChange = viewModel::onCurrencyChange,
+                    placeholder = "EGP",
+                    modifier = Modifier.weight(1f),
+                )
+            }
+            Spacer(Modifier.height(10.dp))
+            WalletTextField(
+                label = s.category,
+                value = state.suggestion.categoryLabel,
+                onValueChange = viewModel::onCategoryLabelChange,
+            )
+            Spacer(Modifier.height(10.dp))
+            WalletTextField(
+                label = s.date,
+                value = state.suggestion.date,
+                onValueChange = viewModel::onDateChange,
+            )
+            Spacer(Modifier.height(10.dp))
+            WalletTextField(
+                label = s.account,
+                value = state.suggestion.account,
+                onValueChange = viewModel::onAccountChange,
             )
         }
         Spacer(Modifier.height(14.dp))

@@ -56,6 +56,31 @@ class AddTransactionViewModel(
         }
     }
 
+    fun onParsedTextChange(text: String) {
+        state = state.copy(suggestion = state.suggestion.copy(parsedText = text))
+    }
+
+    fun onAmountChange(text: String) {
+        val filtered = text.filter { it.isDigit() }
+        state = state.copy(suggestion = state.suggestion.copy(amount = filtered))
+    }
+
+    fun onCurrencyChange(text: String) {
+        state = state.copy(suggestion = state.suggestion.copy(currency = text))
+    }
+
+    fun onDateChange(text: String) {
+        state = state.copy(suggestion = state.suggestion.copy(date = text))
+    }
+
+    fun onAccountChange(text: String) {
+        state = state.copy(suggestion = state.suggestion.copy(account = text))
+    }
+
+    fun onCategoryLabelChange(text: String) {
+        state = state.copy(suggestion = state.suggestion.copy(categoryLabel = text))
+    }
+
     fun save(onComplete: () -> Unit) {
         val suggestion = state.suggestion
         scope.launch {
